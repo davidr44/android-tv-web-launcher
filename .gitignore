@@ -1,0 +1,13 @@
+out/
+tools/cache/
+tools/__pycache__/
+Inicio*.apk
+inicio-fonte.zip
+preview-*.png
+glass-antes-depois.png
+watch-opcoes.png
+plano-*.png
+# Signing key: stays on the build machine (updates must be signed with the same file)
+inicio.keystore
+# Personal apps for one TV (see web/apps.js)
+web/apps.local.js

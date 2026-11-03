@@ -1,0 +1,16 @@
+/* The screensaver (dream.html): a fixed 1920x1080 stage like the home screen. Only transform and opacity animate. */
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+.stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:#000;color:#f6f1e7;font-family:Manrope,Arial,sans-serif}
+.photo{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover;opacity:0;transform:scale(1);transition:opacity 3s ease}
+.photo.is-on{opacity:1}
+/* Slow drift, so the picture is never quite still. */
+.photo.is-drift{transform:scale(1.08) translate3d(-24px,-12px,0);transition:opacity 3s ease,transform 120s linear}
+.shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0) 55%),linear-gradient(to right,rgba(0,0,0,.28),rgba(0,0,0,0) 50%)}
+.card{position:absolute;left:140px;bottom:120px;max-width:860px;display:flex;flex-direction:column;text-shadow:0 1px 3px rgba(0,0,0,.35),0 4px 18px rgba(0,0,0,.25);transition:opacity 1.5s ease}
+.card.is-right{left:auto;right:140px;align-items:flex-end;text-align:right}
+.card.is-hidden{opacity:0}
+.clock{font-size:168px;line-height:1;font-weight:500;letter-spacing:-6px;font-variant-numeric:tabular-nums}
+.date{margin-top:14px;font-size:34px;line-height:44px;font-weight:500;opacity:.82}
+.verse{margin-top:44px;display:flex;flex-direction:column;gap:10px}
+.verse-text{font-size:34px;line-height:48px;font-weight:500}
+.verse-ref{font-size:24px;line-height:32px;font-weight:500;opacity:.7}

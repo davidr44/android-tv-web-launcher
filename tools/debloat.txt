@@ -1,0 +1,10 @@
+Debloat: apps disabled with pm disable-user (nothing uninstalled). Run each line from a PC (PowerShell or a shell).
+
+Disable (skips any app that owns a saved Wi-Fi network, because Android would delete that network):
+adb shell 'for p in tv.samba.ssm com.sony.dtv.promos com.sony.dtv.sonyselect com.sony.dtv.demosupport com.sony.dtv.demosystemsupport com.sony.dtv.multiscreendemo com.google.android.play.games com.sonyericsson.idd.agent com.google.android.youtube.tvmusic com.google.android.videos com.sony.dtv.osat.music com.sony.dtv.livingfit com.sony.dtv.smarthelp com.sony.dtv.helpguidecontents; do if dumpsys wifi | grep -e creatorName -e lastUpdateName | grep -q $p; then echo SKIPPED $p owns-a-wifi-network; else pm disable-user --user 0 $p; fi; done'
+
+Undo:
+adb shell 'for p in tv.samba.ssm com.sony.dtv.promos com.sony.dtv.sonyselect com.sony.dtv.demosupport com.sony.dtv.demosystemsupport com.sony.dtv.multiscreendemo com.google.android.play.games com.sonyericsson.idd.agent com.google.android.youtube.tvmusic com.google.android.videos com.sony.dtv.osat.music com.sony.dtv.livingfit com.sony.dtv.smarthelp com.sony.dtv.helpguidecontents; do pm enable $p; done'
+
+List what is disabled:
+adb shell pm list packages -d

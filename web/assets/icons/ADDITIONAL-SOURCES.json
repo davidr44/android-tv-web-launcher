@@ -1,0 +1,50 @@
+[
+  {
+    "icon": "spotify",
+    "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/spotify.svg",
+    "licence": "CC0-1.0",
+    "note": "Shape unchanged; white fill for launcher."
+  },
+  {
+    "icon": "hbomax",
+    "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/hbomax.svg",
+    "licence": "CC0-1.0",
+    "note": "Shape unchanged; white fill for launcher."
+  },
+  {
+    "icon": "tubi",
+    "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/tubi.svg",
+    "licence": "CC0-1.0",
+    "note": "Shape unchanged; white fill for launcher."
+  },
+  {
+    "icon": "dazn",
+    "source": "https://github.com/simple-icons/simple-icons/blob/13.21.0/icons/dazn.svg",
+    "licence": "CC0-1.0",
+    "note": "Shape unchanged; white fill for launcher."
+  },
+  {
+    "icon": "twitch",
+    "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/twitch.svg",
+    "licence": "CC0-1.0",
+    "note": "Shape unchanged; white fill for launcher."
+  },
+  {
+    "icon": "tv",
+    "source": "original",
+    "licence": "MIT (this project)",
+    "note": "Original drawing for In\u00edcio (a TV with an antenna)."
+  },
+  {
+    "icon": "ps5",
+    "source": "original",
+    "licence": "MIT (this project)",
+    "note": "Original drawing for In\u00edcio (a game controller); not the PlayStation logo."
+  },
+  {
+    "icon": "ps5-app",
+    "source": "original",
+    "licence": "MIT (this project)",
+    "note": "Original drawing for In\u00edcio: the PS5 tile in All apps."
+  }
+]
