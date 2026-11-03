@@ -54,13 +54,13 @@ Then I saw CleanFrame: one photo, a small clock, a frosted-glass dock and nothin
 
 1. **A dock with only my apps:** YouTube, live TV, Netflix, Spotify, a sports app, the PS5 and Twitch. The focused app's name sits under its mark.
 2. **The PS5 is an app.** Its tile switches the TV straight to HDMI 3. When the console turns on, the tile glows and the focus jumps to it.
-3. **Today's watch time** in the top-right controls. OK opens the split per app, with the PS5 counted separately from live TV.
+3. **Today's watch time** in the top-right controls. Selecting it opens the time per app, with the PS5 counted separately from live TV.
 4. **The Bible's verse of the day**, the same one as the YouVersion app, under the clock.
 5. **A matching screensaver.** The wallpapers crossfade every two minutes with the clock and the verse, which change sides so nothing burns in.
 6. **The TV's own click sounds** when the focus moves.
 7. **Debloat.** 14 promotion, demo and telemetry apps are disabled, with an undo for each.
 
-| PS5 turned on: the tile glows | OK on the watch time: today, per app |
+| PS5 turned on: the tile glows | Watch time selected: today, per app |
 |:---:|:---:|
 | ![The PS5 tile glowing in the dock](docs/screenshots/02-ps5-live.jpg) | ![Watched today: total and per-app bars](docs/screenshots/04-watch-panel.png) |
 
@@ -93,7 +93,7 @@ flowchart LR
 
 | Layer | Tool | Role |
 |---|---|---|
-| Home screen | `HomeActivity` (Java) | Registered for the `HOME` intent. Owns the WebView, the remote's OK and Back keys, and memory pressure |
+| Home screen | `HomeActivity` (Java) | Registered for the `HOME` intent. Owns the WebView, the remote's OK (select) and Back buttons, and memory pressure |
 | Interface | CleanFrame (HTML/CSS/JS) in a WebView | Served from the APK's assets through an intercepted origin, so the page never touches the network |
 | App config | `web/apps.js` | The dock, which installed app shows as each entry, and what counts as watching. One file, read by both sides |
 | TV access | `Bridge.java` (`window.AndroidTV`) | Installed apps and icons, launching apps, HDMI passthrough and live TV, HDMI signal states, sounds |
@@ -130,10 +130,10 @@ flowchart LR
 **Why:** Android deletes the networks an app created when that app is disabled. The check is Free My TV's rule. Everything I disabled is promotional, a demo, telemetry or unused: Samba TV (which analyses what's on screen for advertising), Sony's promos and demos, help content and unused Google apps.
 **Trade-off:** the list is specific to this Sony. It isn't a general debloat script.
 
-### 5. OK acts when the button is released, and only if it was pressed here
+### 5. The select button acts when it's released, and only if it was pressed here
 
-**Decision:** OK and Back act on key-up, and only if the key-down also happened in the launcher.
-**Why:** acting on key-down opened YouTube with the button still held. The app received the release as its own click and started playing the first video on its home page. Android buttons fire on release, and Free My TV handles it the same way.
+**Decision:** OK (the remote's select button, in the middle of the arrows) and Back act when the button is released, and only if it was also pressed in the launcher.
+**Why:** acting on the press opened YouTube with the button still held down. The app received the release as its own click and started playing the first video on its home page. Android buttons fire on release, and Free My TV handles it the same way.
 
 ### 6. HDMI inputs as first-class apps
 

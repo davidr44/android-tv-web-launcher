@@ -58,7 +58,7 @@ Screensaver: on the TV, *Settings → Device Preferences → Screen saver → Wa
 
 ## Watch time
 
-The first of the top-right controls ("3h 12m today"; OK opens the split per app). It reads Android's own usage log, which needs a one-time permission:
+The first of the top-right controls ("3h 12m today"; selecting it opens the time per app). It reads Android's own usage log, which needs a one-time permission:
 
 ```
 adb shell appops set pt.inicio.launcher GET_USAGE_STATS allow     # on
