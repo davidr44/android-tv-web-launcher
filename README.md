@@ -208,17 +208,22 @@ The menu's late "stopped" closed the span the player had just opened, so playbac
 
 ## Performance on the TV
 
-Measured on my TV with `dumpsys gfxinfo` and `dumpsys meminfo` after a clean restart, comparing two versions. Free My TV's numbers are the ones its project publishes, measured on a different TV.
+**Memory, compared with the alternatives**
 
-| | 0.10 | 0.13 |
+| Home screen | Memory | Where the number comes from |
 |---|---|---|
-| Slow frames | 12.1% | **8.5%** |
-| Median / 90th percentile frame time | 10 / 18 ms | **10 / 15 ms** |
-| The launcher's own process | 132 MB | **111 MB** |
-| WebView renderer | not measured | 71 MB |
-| Crashes / app not responding | 0 | 0 |
+| Factory Google TV launcher | 242 MB | Published by Free My TV, measured on another TV |
+| **This launcher** | **182 MB** (111 MB for the app + 71 MB for the WebView page) | Measured on my TV |
+| Free My TV (native, drawn on a Canvas) | 96 MB | Published by Free My TV, measured on another TV |
 
-Total for 0.13: about 182 MB. For comparison, Free My TV reports 96 MB for its native launcher and 242 MB for the factory Google TV launcher.
+It uses less than the factory launcher and about twice as much as a native one. That's the cost of the WebView (decision 1).
+
+**Smoothness, measured on my TV**
+- 90% of frames take 15 ms or less (60 fps needs under 16.6 ms). The median is 10 ms.
+- 8.5% of frames are slow (over 16.6 ms).
+- No crashes and no "app not responding" errors.
+
+An earlier version (0.10) had 12.1% slow frames and used 132 MB for the app. After the memory changes in decision 9, it measured as above. All measurements were taken with `dumpsys gfxinfo` and `dumpsys meminfo` after a clean restart.
 
 **Is 182 vs 96 MB worth a rewrite?** I asked myself that. Under memory pressure the launcher drops to about 110 MB, because it releases the page (decision 9). The difference shows up as an occasional extra 0.7 s when coming home, and a slightly higher chance that the app I left restarts from its beginning. Losing the editable design to save that wasn't worth it.
 
