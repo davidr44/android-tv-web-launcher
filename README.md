@@ -1,14 +1,14 @@
-# Início: a custom home screen for my Sony Bravia
+# A custom home screen for my Sony Bravia
 
 [![Build](https://github.com/davidr44/android-tv-web-launcher/actions/workflows/build.yml/badge.svg)](https://github.com/davidr44/android-tv-web-launcher/actions/workflows/build.yml)
 
 **An Android TV launcher that replaces my TV's factory home screen with only what I use: six apps, the PS5 one button away, a photo, the time, a Bible verse and how long I've watched today.**
 
-> Início ("home" in Portuguese) has been the home screen of my Sony Bravia (Android TV 10) every day since October 2026. It's a personal project, built for one TV and installed from a PC, not from the Play Store. The interface is [CleanFrame](https://github.com/nthnclrk/CleanFrame), an open-source home screen for Samsung's The Frame, which I ported to Android and extended. This page explains what I built on top of it and why.
+> This has been the home screen of my Sony Bravia (Android TV 10) every day since October 2026. It's a personal project, built for one TV and installed from a PC, not from the Play Store. The interface is [CleanFrame](https://github.com/nthnclrk/CleanFrame), an open-source home screen for Samsung's The Frame, which I ported to Android and extended. This page explains what I built on top of it and why.
 
 **Stack:** Java (Android 10 APIs, no AndroidX) · WebView · vanilla HTML/CSS/JS · Python build tooling (no Android SDK) · adb · YouVersion Platform API · Playwright · GitHub Actions
 
-![Início on the TV: clock, verse of the day, watch time, and the dock](docs/screenshots/01-home.jpg)
+![The home screen on the TV: clock, verse of the day, watch time, and the dock](docs/screenshots/01-home.jpg)
 
 ---
 
@@ -31,7 +31,13 @@
 
 ## The problem
 
-I'm someone who likes things efficient. My TV's factory home screen was the opposite: rows of recommendations from every streaming service, a long strip of apps I never open, and Sony's promotion and demo apps running in the background. I didn't really have ads, but I had to scroll past other people's suggestions to reach the four or five things I actually use.
+I'm someone who likes things efficient. My TV's factory home screen was the opposite: a long strip of apps, a row of what I'd watched, a row of apps Google Play wanted me to install, and Sony's promotion and demo apps running in the background. Not exactly ads, but I had to look past all of it to reach the five or six things I actually use.
+
+| Before: the factory Google TV home screen | After |
+|:---:|:---:|
+| ![The factory home screen: search, tabs, a strip of apps, watch history and Google Play promotions](docs/screenshots/00-before.jpg) | ![The new home screen: a photo, the time, a verse and six apps](docs/screenshots/01-home.jpg) |
+
+*Before: a phone photo of my TV, with my account picture blurred. After: rendered from the launcher's HTML (see [What it does](#what-it-does)).*
 
 Then I saw CleanFrame: one photo, a small clock, a frosted-glass dock and nothing else. It was made for Samsung's Tizen TVs, and mine is a Sony on Android. So I decided to bring it over.
 
@@ -71,7 +77,7 @@ Then I saw CleanFrame: one photo, a small clock, a frosted-glass dock and nothin
 ```mermaid
 flowchart LR
     R[TV remote] --> H
-    subgraph APK["Início APK (Java)"]
+    subgraph APK["Launcher APK (Java)"]
         H[HomeActivity<br/>HOME intent · keys · lifecycle] --> W[WebView<br/>CleanFrame UI from the APK's assets]
         W <-->|"window.AndroidTV"| B[Bridge]
         D[InicioDream<br/>screensaver] --> W2[WebView<br/>dream.html]
@@ -104,7 +110,7 @@ flowchart LR
 
 **Decision:** keep CleanFrame's HTML/CSS/JS and wrap it in a minimal Android app.
 **Why:** the look was the point. A native rewrite (like [Free My TV](https://github.com/simbasjungles/free-my-tv), which draws its home screen on a Canvas) would mean redrawing every detail of the glass and type, and changing the design later would mean Java. With a WebView, the design is a CSS file.
-**Trade-off:** memory. A WebView brings its own renderer process, so Início uses roughly twice the memory of a native launcher ([numbers below](#performance-on-the-tv)).
+**Trade-off:** memory. A WebView brings its own renderer process, so the launcher uses roughly twice the memory of a native launcher ([numbers below](#performance-on-the-tv)).
 
 ### 2. Build the APK without the Android SDK
 
@@ -114,9 +120,9 @@ flowchart LR
 
 ### 3. Disable the factory launcher, don't fight it
 
-**Decision:** disable `com.google.android.tvlauncher` and its recommendations service with `pm disable-user`, then set Início as home.
-**Why:** setting Início as the preferred home screen reported success, and the Home button still opened Google's launcher. On this TV it's registered with system priority 2, which beats any user preference. Disabling it is reversible with one command, or from the TV's own settings without a PC. The recommendations service goes with it, because Free My TV found it crashes with the screensaver when the launcher is off.
-**Trade-off:** there's no automatic fallback. If Início crashed on every start, recovery would be through the TV's settings ([limitations](#limitations-and-next-steps)).
+**Decision:** disable `com.google.android.tvlauncher` and its recommendations service with `pm disable-user`, then set the new launcher as home.
+**Why:** setting the new launcher as the preferred home screen reported success, and the Home button still opened Google's launcher. On this TV it's registered with system priority 2, which beats any user preference. Disabling it is reversible with one command, or from the TV's own settings without a PC. The recommendations service goes with it, because Free My TV found it crashes with the screensaver when the launcher is off.
+**Trade-off:** there's no automatic fallback. If the launcher crashed on every start, recovery would be through the TV's settings ([limitations](#limitations-and-next-steps)).
 
 ### 4. A debloat that checks Wi-Fi ownership first
 
@@ -126,7 +132,7 @@ flowchart LR
 
 ### 5. OK acts when the button is released, and only if it was pressed here
 
-**Decision:** OK and Back act on key-up, and only if the key-down also happened in Início.
+**Decision:** OK and Back act on key-up, and only if the key-down also happened in the launcher.
 **Why:** acting on key-down opened YouTube with the button still held. The app received the release as its own click and started playing the first video on its home page. Android buttons fire on release, and Free My TV handles it the same way.
 
 ### 6. HDMI inputs as first-class apps
@@ -138,7 +144,7 @@ flowchart LR
 
 **Decision:** read Android's usage log (`UsageStatsManager.queryEvents`) instead of timing apps from the launcher.
 **Why:** the launcher isn't running while I watch, but Android already records every time an activity comes on screen or leaves it. The permission is granted once over adb, and nothing new runs in the background.
-**The PS5 problem:** console time shows up as Sony's TV app, which also shows live TV. So Início keeps a small log of when each HDMI port had a signal, and the TV app's time that overlaps the PS5's port counts as PS5.
+**The PS5 problem:** console time shows up as Sony's TV app, which also shows live TV. So the launcher keeps a small log of when each HDMI port had a signal, and the TV app's time that overlaps the PS5's port counts as PS5.
 **Trade-off:** it trusts the signal. If the PS5 is on standby with HDMI active while I watch live TV, that time counts as PS5.
 
 ### 8. The verse of the day from YouVersion, with the key only on the TV
@@ -149,7 +155,7 @@ flowchart LR
 
 ### 9. Memory: let the page go when the TV needs it
 
-**Decision:** when Android signals memory pressure while another app is on screen, Início destroys its WebView and rebuilds it on the way back home. The frosted-glass backgrounds are stored at 960×540 instead of 1920×1080.
+**Decision:** when Android signals memory pressure while another app is on screen, the launcher destroys its WebView and rebuilds it on the way back home. The frosted-glass backgrounds are stored at 960×540 instead of 1920×1080.
 **Why:** streaming apps are what need the memory. The glass images are blurred by 14 to 42 px, so half the resolution looks the same and takes a quarter of the GPU memory. I compared before and after screenshots before keeping it.
 **Trade-off:** coming home after a memory squeeze takes a moment longer while the page rebuilds.
 
@@ -165,7 +171,7 @@ flowchart LR
 - **A launcher from the Play Store.** Projectivy and FLauncher would have worked in ten minutes. Neither looks like CleanFrame, and I wanted that exact design.
 - **Setting the home screen without disabling Google's launcher.** It reported success and changed nothing (decision 3).
 - **Faster system animations (0.5×).** It's a common tweak. App transitions felt abrupt, so I went back to 1×.
-- **A "leave Início?" dialog on Back.** A home screen has nowhere to go back to. Back on home now does nothing.
+- **A "leave the home screen?" dialog on Back.** A home screen has nowhere to go back to. Back on home now does nothing.
 - **Watch time under the clock, then as a small label.** On light wallpapers the white text disappeared. I moved it into the top-right controls, replacing the Wallpaper shortcut (now in Settings). There it inherits the controls' contrast handling and focus.
 - **A broad Wi-Fi check in the debloat.** The first version searched the whole Wi-Fi dump for each package name and skipped 7 of the 14 apps by mistake. It now only looks at the fields that record which app created a network.
 
@@ -177,7 +183,7 @@ flowchart LR
 
 **Symptom.** After a long evening in one of my video apps, the watch time had barely moved. The per-app panel showed nothing at all for that app, while YouTube and Netflix were counted correctly.
 
-**First hypothesis (partly right, not the cause).** The number on the home screen only refreshed once a minute, so it could be stale on the way back. That was true, and it's fixed: Início now refreshes it every time it comes back on screen. But the panel reads the log live when it opens, and it still showed nothing. The counting itself was wrong for this one app.
+**First hypothesis (partly right, not the cause).** The number on the home screen only refreshed once a minute, so it could be stale on the way back. That was true, and it's fixed: the launcher now refreshes it every time it comes back on screen. But the panel reads the log live when it opens, and it still showed nothing. The counting itself was wrong for this one app.
 
 **Second hypothesis.** The app hands playback to another package, such as an external player, so its time is logged under a different name. The next step would have been dumping the usage log from the TV.
 
@@ -208,13 +214,13 @@ Measured on my TV with `dumpsys gfxinfo` and `dumpsys meminfo` after a clean res
 |---|---|---|
 | Slow frames | 12.1% | **8.5%** |
 | Median / 90th percentile frame time | 10 / 18 ms | **10 / 15 ms** |
-| Início's own process | 132 MB | **111 MB** |
+| The launcher's own process | 132 MB | **111 MB** |
 | WebView renderer | not measured | 71 MB |
 | Crashes / app not responding | 0 | 0 |
 
 Total for 0.13: about 182 MB. For comparison, Free My TV reports 96 MB for its native launcher and 242 MB for the factory Google TV launcher.
 
-**Is 182 vs 96 MB worth a rewrite?** I asked myself that. Under memory pressure Início drops to about 110 MB, because it releases the page (decision 9). The difference shows up as an occasional extra 0.7 s when coming home, and a slightly higher chance that the app I left restarts from its beginning. Losing the editable design to save that wasn't worth it.
+**Is 182 vs 96 MB worth a rewrite?** I asked myself that. Under memory pressure the launcher drops to about 110 MB, because it releases the page (decision 9). The difference shows up as an occasional extra 0.7 s when coming home, and a slightly higher chance that the app I left restarts from its beginning. Losing the editable design to save that wasn't worth it.
 
 ---
 
@@ -260,7 +266,7 @@ Making it the home screen, the permissions and every undo are in [docs/operation
 
 ## Credits
 
-- **[CleanFrame](https://github.com/nthnclrk/CleanFrame)** by Nathan Clark (MIT): the whole interface and its design. Início started from commit `fa537d1` and changed about 120 of its 1,900 lines of JavaScript. Its licence is kept in `web/LICENSE`.
+- **[CleanFrame](https://github.com/nthnclrk/CleanFrame)** by Nathan Clark (MIT): the whole interface and its design. This project started from commit `fa537d1` and changed about 120 of its 1,900 lines of JavaScript. Its licence is kept in `web/LICENSE`.
 - **[Free My TV](https://github.com/simbasjungles/free-my-tv)** (MIT): the reference for replacing a TV home screen safely. Disabling instead of uninstalling, the Wi-Fi ownership rule, OK on release and HDMI passthrough all follow its approach. No code was copied.
 - **[TizenTube Cobalt](https://github.com/reisxd/TizenTubeCobalt)** by reisxd: the YouTube client for Android TV behind the YouTube tile.
 - **[YouVersion Platform](https://platform.youversion.com)**: the verse of the day. The verses are from the **[Berean Standard Bible](https://berean.bible)** (public domain). The offline list was taken from **[scrollmapper/bible_databases](https://github.com/scrollmapper/bible_databases)**.
@@ -277,7 +283,7 @@ Full licence notes for the bundled assets: [web/THIRD_PARTY_NOTICES.md](web/THIR
 ## Limitations and next steps
 
 - **One TV.** The HDMI input IDs, the live-TV service and the debloat list are Sony's, on Android 10.
-- **No watchdog.** Free My TV switches back to the factory launcher if its own crashes repeatedly. Início doesn't. It has never crashed, and recovery is in the TV's settings, but it should have one.
+- **No watchdog.** Free My TV switches back to the factory launcher if its own crashes repeatedly. This one doesn't. It has never crashed, and recovery is in the TV's settings, but it should have one.
 - **Memory.** About 182 MB against roughly 96 MB for a native launcher (see above).
 - **Watch time trusts the HDMI signal** (decision 7), and only counts the apps listed in `apps.js`.
 - **Installed over adb.** There's no Play Store listing and no automatic updates.

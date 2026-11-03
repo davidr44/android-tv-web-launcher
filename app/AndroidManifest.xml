@@ -2,8 +2,8 @@
 <!-- Compiled by tools/axml.py (not aapt2): only the android: attributes listed there are understood. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.inicio.launcher"
-    android:versionCode="18"
-    android:versionName="0.18">
+    android:versionCode="19"
+    android:versionName="0.19">
 
     <uses-sdk android:minSdkVersion="28" android:targetSdkVersion="29" />
 
@@ -16,7 +16,7 @@
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
     <application
-        android:label="Início"
+        android:label="Home screen"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:usesCleartextTraffic="false">
@@ -25,7 +25,7 @@
              an ordinary app, opened from the apps list. -->
         <activity
             android:name="pt.inicio.launcher.HomeActivity"
-            android:label="Início"
+            android:label="Home screen"
             android:exported="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
@@ -47,10 +47,10 @@
             </intent-filter>
         </activity>
 
-        <!-- The screensaver, chosen by hand in the TV's settings (Screen saver > Início). -->
+        <!-- The screensaver, chosen by hand in the TV's settings (Screen saver > Wallpapers & verse). -->
         <service
             android:name="pt.inicio.launcher.InicioDream"
-            android:label="Início"
+            android:label="Wallpapers &amp; verse"
             android:exported="true"
             android:permission="android.permission.BIND_DREAM_SERVICE">
             <intent-filter>

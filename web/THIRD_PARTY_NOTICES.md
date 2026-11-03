@@ -1,6 +1,6 @@
 # Third-party notices
 
-Copied from [CleanFrame](https://github.com/nthnclrk/CleanFrame) (commit fa537d1) with paths adapted to this repository. The MIT licence beside this file (`web/LICENSE`) is CleanFrame's and covers its code; the rest of Início is covered by the root `LICENSE`.
+Copied from [CleanFrame](https://github.com/nthnclrk/CleanFrame) (commit fa537d1) with paths adapted to this repository. The MIT licence beside this file (`web/LICENSE`) is CleanFrame's and covers its code; the rest of this launcher is covered by the root `LICENSE`.
 
 The root MIT licence covers CleanFrame's original code and documentation. Third-party material retains the terms below. Keep these notices and the adjacent licence texts when sharing source or a build.
 
@@ -18,10 +18,10 @@ The public app uses Manrope, Geist and Newsreader. A personal widget containing 
 
 | Material | Provenance and terms |
 | --- | --- |
-| Simple Icons service marks (including DAZN and Twitch, added by Início) | CC0; exact revisions and adaptations in `assets/icons/SOURCES.json` and `ADDITIONAL-SOURCES.json`. The CC0 text is retained beside the icons. |
+| Simple Icons service marks (including DAZN and Twitch, added by this project) | CC0; exact revisions and adaptations in `assets/icons/SOURCES.json` and `ADDITIONAL-SOURCES.json`. The CC0 text is retained beside the icons. |
 | Disney+, ABC and SBS marks | [Custom Brand Icons](https://github.com/elax46/custom-brand-icons), MIT. The retained licence is `assets/icons/CUSTOM-BRAND-ICONS-LICENSE.txt`. ABC and SBS sources were replaced during the public-source review. Exact revisions, source files and extraction/recolour notes are in `SOURCES.json`. |
 | Art, apps, settings and home outlines | Original CleanFrame drawings, covered by CleanFrame's MIT licence. |
-| TV, PS5 and PS5 tile marks | Original Início drawings, covered by the root MIT licence. The PS5 mark is a generic controller, not the PlayStation logo. |
+| TV, PS5 and PS5 tile marks | Original drawings for this project, covered by the root MIT licence. The PS5 mark is a generic controller, not the PlayStation logo. |
 
 Brand marks identify services. Their owners retain trademark rights; this project claims no endorsement or affiliation. The older Australian TV icon archive's GPL text is retained for historical provenance only; no current icon uses that archive.
 
@@ -35,7 +35,7 @@ Photographers retain their rights. Wallpapers, thumbnails, panel backgrounds and
 
 Development dependencies retain the licences in their npm packages. They are not copied into the TV JavaScript runtime.
 
-Início does not ship the optional proprietary fonts. Preserve the included font and icon licence texts when sharing source or a build.
+This project does not ship the optional proprietary fonts. Preserve the included font and icon licence texts when sharing source or a build.
 
 ## Bible verses
 

@@ -1,4 +1,4 @@
-# Operating Início
+# Operating the launcher
 
 Everything here runs from a PC with `adb` connected to the TV over the network: turn on ADB debugging in the TV's Developer options, then `adb connect <TV address>` and accept the prompt on the TV. Every command that changes the TV has its undo next to it.
 
@@ -52,9 +52,9 @@ adb shell cmd package set-home-activity com.google.android.tvlauncher/.MainActiv
 
 Without a PC: *Settings → Apps → See all apps → Show system apps → Android TV Home → Enable*.
 
-Inside Início, *Settings → TV → Original Home* opens the factory home screen while it is still enabled.
+Inside the launcher, *Settings → TV → Original Home* opens the factory home screen while it is still enabled.
 
-Screensaver: on the TV, *Settings → Device Preferences → Screen saver → Início*. To go back, choose *Backdrop* (Ambient Mode) there.
+Screensaver: on the TV, *Settings → Device Preferences → Screen saver → Wallpapers & verse*. To go back, choose *Backdrop* (Ambient Mode) there.
 
 ## Watch time
 

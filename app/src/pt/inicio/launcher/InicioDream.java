@@ -4,7 +4,7 @@ import android.service.dreams.DreamService;
 import android.webkit.WebView;
 
 /**
- * The screensaver (TV Settings > Screen saver > Início): the home screen's photos, a big clock and the day's verse
+ * The screensaver (TV Settings > Screen saver > Wallpapers & verse): the home screen's photos, a big clock and the day's verse
  * (assets/web/dream.html). Any key wakes the TV, as with any screensaver.
  */
 public class InicioDream extends DreamService {

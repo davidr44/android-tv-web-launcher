@@ -14,7 +14,7 @@
 
   function bridge() { return window.AndroidTV; }
   function unavailable(done) {
-    done({ message: 'Open Início on the TV to use this control.', detail: 'The browser preview cannot control the TV.' });
+    done({ message: 'Open the launcher on the TV to use this control.', detail: 'The browser preview cannot control the TV.' });
   }
   function call(run, done) {
     if (!bridge()) { unavailable(done); return; }

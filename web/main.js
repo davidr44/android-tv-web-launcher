@@ -1,4 +1,4 @@
-/* Início: the CleanFrame home screen on a Sony Bravia (Android TV). Static materials, local preferences and the
+/* The CleanFrame home screen on a Sony Bravia (Android TV). Static materials, local preferences and the
    Android bridge in device.js. */
 (function () {
   'use strict';
